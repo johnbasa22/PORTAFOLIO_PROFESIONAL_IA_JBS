@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Johan Batista | Frontend Developer & UI/UX Designer</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Portafolio profesional de Johan Batista, Frontend Developer y UI/UX Designer. Creador de contenido de YouTube y desarrollo web ciberpunk.">
+    <meta name="keywords" content="Johan Batista, Frontend Developer, UI/UX Designer, React, Bootstrap, Web Development, Cyberpunk Portfolio">
+    <meta name="author" content="Johan Batista">
+
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome 6 CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Devicon Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <!-- Custom CSS Styling -->
+    <style>
+        :root {
+            --cyber-cyan: #00f3ff;
+            --cyber-pink: #ff007f;
+            --cyber-yellow: #ffe600;
+            --dodger-blue: #1e90ff;
+            --cyber-green: #00ff66;
+            --matrix-char-color: rgba(0, 243, 255, 0.65);
+            --bg-glass-dark: rgba(12, 16, 25, 0.82);
+            --bg-glass-light: rgba(255, 255, 255, 0.88);
+            --border-neon: rgba(0, 243, 255, 0.4);
+            --shadow-glow: 0 0 15px rgba(0, 243, 255, 0.25);
+            --text-main: #ffffff;
+            --card-bg: rgba(16, 23, 38, 0.85);
+        }
+
+        [data-bs-theme="light"] {
+            --cyber-cyan: #007799;
+            --cyber-pink: #d6006e;
+            --cyber-yellow: #b88600;
+            --dodger-blue: #1e90ff;
+            --cyber-green: #009933;
+            --matrix-char-color: rgba(30, 144, 255, 0.35);
+            --bg-glass-dark: rgba(245, 247, 250, 0.9);
+            --border-neon: rgba(30, 144, 255, 0.5);
+            --shadow-glow: 0 0 12px rgba(30, 144, 255, 0.2);
+            --text-main: #0f172a;
+            --card-bg: rgba(255, 255, 255, 0.92);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background-color: var(--bs-body-bg);
+            color: var(--bs-body-color);
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* Fixed translucent Matrix rain canvas background */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.65;
+        }
+
+        /* Glassmorphism Section Cards */
+        .cyber-glass {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-neon);
+            border-radius: 16px;
+            box-shadow: var(--shadow-glow);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .cyber-glass:hover {
+            border-color: var(--cyber-cyan);
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.4);
+            transform: translateY(-4px);
+        }
+
+        /* Neon Glow Text Utilities */
+        .text-neon-cyan { color: var(--cyber-cyan) !important; text-shadow: 0 0 8px rgba(0,243,255,0.4); }
+        .text-neon-pink { color: var(--cyber-pink) !important; text-shadow: 0 0 8px rgba(255,0,127,0.4); }
+        .text-neon-yellow { color: var(--cyber-yellow) !important; text-shadow: 0 0 8px rgba(255,230,0,0.4); }
+        .text-dodger-blue { color: var(--dodger-blue) !important; }
+
+        /* Cyber Navbar */
+        .cyber-navbar {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            border-bottom: 2px solid var(--border-neon);
+        }
+
+        /* Hero Avatar styling */
+        .hero-avatar {
+            width: 170px;
+            height: 170px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid var(--cyber-cyan);
+            box-shadow: 0 0 20px var(--cyber-cyan), inset 0 0 10px var(--cyber-cyan);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .hero-avatar:hover {
+            transform: scale(1.05) rotate(3deg);
+            box-shadow: 0 0 30px var(--cyber-pink);
+            border-color: var(--cyber-pink);
+        }
+
+        /* Tech Stack Card Styling */
+        .stack-card {
+            padding: 1.5rem;
+            text-align: center;
+            border-radius: 12px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-neon);
+            transition: all 0.3s ease;
+        }
+        .stack-card i {
+            font-size: 3rem;
+            margin-bottom: 0.75rem;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+        .stack-card:hover i {
+            transform: scale(1.25) rotate(-5deg);
+        }
+
+        /* Filter Buttons */
+        .btn-cyber-filter {
+            background: transparent;
+            color: var(--bs-body-color);
+            border: 1px solid var(--cyber-cyan);
+            font-weight: 600;
+            padding: 0.5rem 1.25rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        .btn-cyber-filter.active, .btn-cyber-filter:hover {
+            background: var(--cyber-cyan);
+            color: #000 !important;
+            box-shadow: 0 0 15px var(--cyber-cyan);
+        }
+
+        /* Project Card Image & Hover Zoom */
+        .project-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            height: 200px;
+        }
+        .project-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .cyber-glass:hover .project-img-wrapper img {
+            transform: scale(1.1);
+        }
+
+        /* DodgerBlue Submit Button */
+        .btn-dodger {
+            background-color: var(--dodger-blue);
+            color: #ffffff !important;
+            border: none;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 0.75rem 2.5rem;
+            border-radius: 30px;
+            box-shadow: 0 0 15px rgba(30, 144, 255, 0.6);
+            transition: all 0.3s ease;
+        }
+        .btn-dodger:hover {
+            background-color: #0077ea;
+            box-shadow: 0 0 25px rgba(30, 144, 255, 0.9);
+            transform: scale(1.03);
+        }
+
+        /* Floating Back to Top Button */
+        #btn-back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            display: none;
+            z-index: 1000;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--cyber-cyan);
+            color: #000;
+            border: none;
+            box-shadow: 0 0 15px var(--cyber-cyan);
+            transition: all 0.3s ease;
+        }
+        #btn-back-to-top:hover {
+            transform: translateY(-5px);
+            background: var(--cyber-pink);
+            color: #fff;
+            box-shadow: 0 0 20px var(--cyber-pink);
+        }
+
+        /* Custom Social Icons Footer Glow */
+        .social-link-icon {
+            width: 45px;
+            height: 45px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            color: #fff !important;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--cyber-cyan);
+            transition: all 0.3s ease;
+        }
+        .social-link-icon:hover {
+            background: var(--cyber-cyan);
+            color: #000 !important;
+            box-shadow: 0 0 15px var(--cyber-cyan);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Canvas para el fondo translúcido tipo lluvia Matrix -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- 1. NAVBAR ESTILIZADO -->
+    <nav class="navbar navbar-expand-lg fixed-top cyber-navbar py-2" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-neon-cyan fs-4" href="#hero">
+                <i class="fa-solid fa-terminal me-2"></i>[johan Batista]
+            </a>
+            <button class="navbar-toggler border-0 text-neon-cyan" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa-solid fa-bars fs-2"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ms-auto me-4 mb-2 mb-lg-0 fw-semibold">
+                    <li class="nav-item"><a class="nav-link text-uppercase px-3" href="#hero">■ Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link text-uppercase px-3" href="#stack">■ Stack</a></li>
+                    <li class="nav-item"><a class="nav-link text-uppercase px-3" href="#proyectos">■ Proyectos</a></li>
+                    <li class="nav-item"><a class="nav-link text-uppercase px-3" href="#experiencia">■ Experiencia</a></li>
+                    <li class="nav-item"><a class="nav-link text-uppercase px-3" href="#videos">■ Videos</a></li>
+                    <li class="nav-item"><a class="nav-link text-uppercase px-3" href="#contacto">■ Contacto</a></li>
+                </ul>
+                <!-- Theme Toggle Switch -->
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-outline-info rounded-pill px-3 py-1 text-neon-cyan border-cyan" id="themeToggleBtn" aria-label="Cambiar Tema">
+                        <i class="fa-solid fa-moon me-2" id="themeIcon"></i>
+                        <span id="themeText" class="fw-bold">Dark Mode</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. SECCIÓN HERO -->
+    <section id="hero" class="min-vh-100 d-flex align-items-center pt-5 mt-4">
+        <div class="container">
+            <div class="row align-items-center justify-content-between g-4 py-5">
+                <div class="col-lg-7 order-2 order-lg-1">
+                    <div class="cyber-glass p-4 p-md-5">
+                        <span class="badge bg-primary-subtle text-neon-cyan fs-6 mb-3 px-3 py-2 border border-info">
+                            <i class="fa-solid fa-code me-2"></i>Disponible para Proyectos
+                        </span>
+                        <h1 class="display-3 fw-extrabold mb-2 text-neon-cyan">
+                            johan Batista
+                        </h1>
+                        <h2 class="h3 fw-bold text-neon-pink mb-3">
+                            ⚡ Frontend Developer & UI/UX Designer
+                        </h2>
+                        <p class="lead mb-4 text-neon-yellow">
+                            🚀 Creador de contenido de YouTube y páginas web. Apasionado por la creación de interfaces ciberpunk oscuras, adaptables, veloces y de alta precisión visual.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3">
+                            <a href="#contacto" class="btn btn-dodger">
+                                <i class="fa-solid fa-paper-plane me-2"></i>Contáctame
+                            </a>
+                            <a href="#proyectos" class="btn btn-outline-light rounded-pill px-4 py-2 border-info text-neon-cyan fw-bold">
+                                <i class="fa-solid fa-folder-open me-2"></i>Ver Portafolio
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Foto de perfil del Hero (Ahorro de espacio) -->
+                <div class="col-lg-5 order-1 order-lg-2 text-center">
+                    <div class="position-relative d-inline-block">
+                        <img src="https://avatars.githubusercontent.com/u/137714801?s=96&v=4" alt="Johan Batista Profile" class="hero-avatar">
+                        <div class="mt-3">
+                            <span class="badge text-bg-dark border border-cyan text-neon-cyan px-3 py-2">
+                                <i class="fa-solid fa-circle-check text-success me-1"></i> Verificado en GitHub
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. STACK TECNOLÓGICO -->
+    <section id="stack" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold text-neon-cyan">
+                    <i class="fa-solid fa-layer-group me-2"></i>Stack Tecnológico
+                </h2>
+                <p class="text-neon-yellow fs-5">Herramientas y lenguajes oficiales de desarrollo</p>
+            </div>
+            <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-4">
+                <div class="col">
+                    <div class="stack-card cyber-glass">
+                        <i class="devicon-html5-plain colored"></i>
+                        <h5 class="fw-bold mt-2">HTML5</h5>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="stack-card cyber-glass">
+                        <i class="devicon-css3-plain colored"></i>
+                        <h5 class="fw-bold mt-2">CSS3</h5>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="stack-card cyber-glass">
+                        <i class="devicon-javascript-plain colored"></i>
+                        <h5 class="fw-bold mt-2">JavaScript</h5>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="stack-card cyber-glass">
+                        <i class="devicon-react-original colored"></i>
+                        <h5 class="fw-bold mt-2">React</h5>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="stack-card cyber-glass">
+                        <i class="devicon-bootstrap-plain colored"></i>
+                        <h5 class="fw-bold mt-2">Bootstrap 5</h5>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="stack-card cyber-glass">
+                        <i class="devicon-csharp-plain colored"></i>
+                        <h5 class="fw-bold mt-2">C#</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. SECCIÓN DE PROYECTOS CON FILTROS DINÁMICOS -->
+    <section id="proyectos" class="py-5">
+        <div class="container">
+            <div class="text-center mb-4">
+                <h2 class="display-5 fw-bold text-neon-cyan">
+                    <i class="fa-solid fa-laptop-code me-2"></i>Proyectos Destacados
+                </h2>
+                <p class="text-neon-pink fs-5">Explora las creaciones organizadas por categoría</p>
+            </div>
+
+            <!-- Filtros de Categoría -->
+            <div class="d-flex justify-content-center flex-wrap gap-2 mb-5">
+                <button class="btn btn-cyber-filter active" data-filter="all">■ Todos</button>
+                <button class="btn btn-cyber-filter" data-filter="web">■ Proyectos Web</button>
+                <button class="btn btn-cyber-filter" data-filter="app">■ Proyectos Apps</button>
+                <button class="btn btn-cyber-filter" data-filter="design">■ Proyectos Diseño</button>
+            </div>
+
+            <!-- 9 Tarjetas en 3 Categorías -->
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="projects-grid">
+                
+                <!-- Web 1 -->
+                <div class="col project-item" data-category="web">
+                    <div class="cyber-glass h-100 d-flex flex-column">
+                        <div class="project-img-wrapper">
+                            <img src="https://placehold.co/600x400/0d1117/00f3ff?text=Web+1+Cyberpunk+Portal" alt="Web 1">
+                        </div>
+                        <div class="p-4 d-flex flex-column flex-grow-1">
+                            <span class="badge bg-info text-dark w-auto align-self-start mb-2 fw-bold">Web 1</span>
+                            <h4 class="fw-bold text-neon-cyan">Plataforma Web Futurist</h4>
+                            <p class="flex-grow-1">Aplicación web responsiva desarrollada con React y Bootstrap en modo oscuro cybernetic.</p>
+                            <div class="mt-3 d-flex gap-2">
+                                <a href="#" class="btn btn-sm btn-outline-info rounded-pill px-3">Ver Demo</a>
+                                <a href="https://github.com/johnbasa22" target="_blank" class="btn btn-sm btn-outline-light rounded-pill px-3"><i class="fab fa-github"></i> Código</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Web 2 -->
+                <div class="col project-item" data-category="web">
+                    <div class="cyber-glass h-100 d-flex flex-column">
+                        <div class="project-img-wrapper">
+                            <img src="https://placehold.co/600x400/0d1117/ff007f?text=Web+2+E-Commerce" alt="Web 2">
+                        </div>
+                        <div class="p-4 d-flex flex-column flex-grow-1">
+                            <span class="badge bg-info text-dark w-auto align-self-start mb-2 fw-bold">Web 2</span>
+                            <h4 class="fw-bold text-neon-cyan">E-Commerce Neón API</h4>
+                            <p class="flex-grow-1">Tienda en línea integrando pasarela de pago simulación y carrito interactivo en Vanilla JS.</p>
+                            <div class="mt-3 d-flex gap-2">
+                                <a href="#" class="btn btn-sm btn-outline-info rounded-pill px-3">Ver Demo</a>
+                                <a href="https://github.com/johnbasa22" target="_blank" class="btn btn-sm btn-outline-light rounded-pill px-3"><i class="fab fa-github"></i> Código</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Web 3 -->
+                <div class="col project-item" data-category="web">
+                    <div class="cyber-glass h-100 d-flex flex-column">
+                        <div class="project-img-wrapper">
+                            <img src="https://placehold.co/600x400/0d1117/ffe600?text=Web+3+Dashboard" alt="Web 3">
+                        </div>
+                        <div class="p-4 d-flex flex-column flex-grow-1">
+                            <span class="badge bg-info text-dark w-auto align-self-start mb-2 fw-bold">Web 3</span>
+                            <h4 class="fw-bold text-neon-cyan">Dashboard de Analíticas</h4>
+                            <p class="flex-grow-1">Panel de control con gráficos interactivos y visualizaciones de métricas en tiempo real.</p>
+                            <div class="mt-3 d-flex gap-2">
+                                <a href="#" class="btn btn-sm btn-outline-info rounded-pill px-3">Ver Demo</a>
+                                <a href="https://github.com/johnbasa22" target="_blank" class="btn btn-sm btn-outline-light rounded-pill px-3"><i class="fab fa-github"></i> Código</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- App 1 -->
+                <div class="col project-item" data-category="app">
+                    <div class="cyber-glass h-100 d-flex flex-column">
+                        <div class="project-img-wrapper">
+                            <img src="https://placehold.co/600x400/080c14/00ff66?text=App+1+Mobile+Task" alt="App 1">
+                        </div>
+                        <div class="p-4 d-flex flex-column flex-grow-1">
+                            <span class="badge bg-success text-dark w-auto align-self-start mb-2 fw-bold">App 1</span>
+                            <h4 class="fw-bold text-neon-cyan">CyberTask Mobile App</h4>
+                            <p class="flex-grow-1">Gestor de tareas híbrido optimizado para rendimiento móvil y almacenamiento offline.</p>
+                            <div class="mt-3 d-flex gap-2">
+                                <a href="#" class="btn btn-sm btn-outline-info rounded-pill px-3">Ver Demo</a>
+                                <a href="https://github.com/johnbasa22" target="_blank" class="btn btn-sm btn-outline-light rounded-pill px-3"><i class="fab fa-github"></i> Código</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- App 2 -->
+                <div class="col project-item" data-category="app">
+                    <div class="cyber-glass h-100 d-flex flex-column">
+                        <div class="project-img-wrapper">
+                            <img src="https://placehold.co/600x400/080c14/1e90ff?text=App+2+Fitness+Tracker" alt="App 2">
+                        </div>
+                        <div class="p-4 d-flex flex-column flex-grow-1">
+                            <span class="badge bg-success text-dark w-auto align-self-start mb-2 fw-bold">App 2</span>
+                            <h4 class="fw-bold text-neon-cyan">FitPulse Cyber Tracker</h4>
+                            <p class="flex-grow-1">Aplicación móvil para seguimiento de rutinas de entrenamiento con recordatorios visuales.</p>
+                            <div class="mt-3 d-flex gap-2">
+                                <a href="#" class="btn btn-sm btn-outline-info rounded-pill px-3">Ver Demo</a>
+                                <a href="https://github.com/johnbasa22" target="_blank" class="btn btn-sm btn-outline-light rounded-pill px-3"><i class="fab fa-github"></i> Código</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- App 3 -->
+                <div class="col project-item" data-category="app">
+                    <div class="cyber-glass h-100 d-flex flex-column">
+                        <div class="project-img-wrapper">
+                            <img src="https://placehold.co/600x400/080c14/00f3ff?text=App+3+Crypto+Wallet" alt="App 3">
+                        </div>
+                        <div class="p-4 d-flex flex-column flex-grow-1">
+                            <span class="badge bg-success text-dark w-auto align-self-start mb-2 fw-bold">App 3</span>
+                            <h4 class="fw-bold text-neon-cyan">Billetera Cripto UI</h4>
+                            <p class="flex-grow-1">Prototipo funcional de billetera digital con conversión de monedas y seguridad en cliente.</p>
+                            <div class="mt-3 d-flex gap-2">
+                                <a href="#" class="btn btn-sm btn-outline-info rounded-pill px-3">Ver Demo</a>
+                                <a href="https://github.com/johnbasa22" target="_blank" class="btn btn-sm btn-outline-light rounded-pill px-3"><i class="fab fa-github"></i> Código</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Des 1 -->
+                <div class="col project-item" data-category="design">
+                    <div class="cyber-glass h-100 d-flex flex-column">
+                        <div class="project-img-wrapper">
+                            <img src="https://placehold.co/600x400/12061c/ff007f?text=Des+1+Design+System" alt="Des 1">
+                        </div>
+                        <div class="p-4 d-flex flex-column flex-grow-1">
+                            <span class="badge bg-warning text-dark w-auto align-self-start mb-2 fw-bold">Des 1</span>
+                            <h4 class="fw-bold text-neon-cyan">Sistema de Diseño Ciberpunk</h4>
+                            <p class="flex-grow-1">Guía de estilos Figma completa con componentes UI futuristas, tipografía y paleta neón.</p>
+                            <div class="mt-3 d-flex gap-2">
+                                <a href="#" class="btn btn-sm btn-outline-info rounded-pill px-3">Ver Figma</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Des 2 -->
+                <div class="col project-item" data-category="design">
+                    <div class="cyber-glass h-100 d-flex flex-column">
+                        <div class="project-img-wrapper">
+                            <img src="https://placehold.co/600x400/12061c/00f3ff?text=Des+2+Gaming+UI" alt="Des 2">
+                        </div>
+                        <div class="p-4 d-flex flex-column flex-grow-1">
+                            <span class="badge bg-warning text-dark w-auto align-self-start mb-2 fw-bold">Des 2</span>
+                            <h4 class="fw-bold text-neon-cyan">Gaming HUD & Concept UI</h4>
+                            <p class="flex-grow-1">Diseño de interfaz de usuario para videojuegos con menús flotantes e indicadores HUD.</p>
+                            <div class="mt-3 d-flex gap-2">
+                                <a href="#" class="btn btn-sm btn-outline-info rounded-pill px-3">Ver Figma</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Des 3 -->
+                <div class="col project-item" data-category="design">
+                    <div class="cyber-glass h-100 d-flex flex-column">
+                        <div class="project-img-wrapper">
+                            <img src="https://placehold.co/600x400/12061c/ffe600?text=Des+3+Brand+Identity" alt="Des 3">
+                        </div>
+                        <div class="p-4 d-flex flex-column flex-grow-1">
+                            <span class="badge bg-warning text-dark w-auto align-self-start mb-2 fw-bold">Des 3</span>
+                            <h4 class="fw-bold text-neon-cyan">Identidad Visual Tech</h4>
+                            <p class="flex-grow-1">Creación de logotipo, banners de YouTube e imagotipo completo para marca personal.</p>
+                            <div class="mt-3 d-flex gap-2">
+                                <a href="#" class="btn btn-sm btn-outline-info rounded-pill px-3">Ver Figma</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. SECCIÓN DE EXPERIENCIA LABORAL -->
+    <section id="experiencia" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold text-neon-cyan">
+                    <i class="fa-solid fa-briefcase me-2"></i>Experiencia Laboral
+                </h2>
+                <p class="text-neon-yellow fs-5">Trayectoria profesional en desarrollo e innovación</p>
+            </div>
+            
+            <!-- Contenedor auto-centrado flexible -->
+            <div class="row justify-content-center g-4">
+                
+                <!-- Rol 1 -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="cyber-glass p-4 h-100 d-flex flex-column">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fa-solid fa-laptop-code text-neon-cyan fs-2 me-3"></i>
+                            <div>
+                                <h4 class="fw-bold mb-0">Frontend Lead</h4>
+                                <span class="text-neon-pink fw-semibold">Tech Studio Hub</span>
+                            </div>
+                        </div>
+                        <span class="badge bg-secondary mb-3 w-auto align-self-start">2023 - Presente</span>
+                        <p class="flex-grow-1">Liderazgo en la creación de maquetaciones modernas responsivas, diseño UI/UX en Figma y desarrollo de librerías de componentes reutilizables.</p>
+                    </div>
+                </div>
+
+                <!-- Rol 2 -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="cyber-glass p-4 h-100 d-flex flex-column">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fa-brands fa-youtube text-danger fs-2 me-3"></i>
+                            <div>
+                                <h4 class="fw-bold mb-0">Creador de Contenido</h4>
+                                <span class="text-neon-cyan fw-semibold">YouTube Tech Channel</span>
+                            </div>
+                        </div>
+                        <span class="badge bg-secondary mb-3 w-auto align-self-start">2022 - Presente</span>
+                        <p class="flex-grow-1">Producción de tutoriales de desarrollo web, análisis de interfaces, tips de optimización y proyectos de código abierto para la comunidad.</p>
+                    </div>
+                </div>
+
+                <!-- Rol 3 -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="cyber-glass p-4 h-100 d-flex flex-column">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fa-solid fa-pen-ruler text-neon-yellow fs-2 me-3"></i>
+                            <div>
+                                <h4 class="fw-bold mb-0">UI/UX Designer</h4>
+                                <span class="text-neon-yellow fw-semibold">Digital Innovators</span>
+                            </div>
+                        </div>
+                        <span class="badge bg-secondary mb-3 w-auto align-self-start">2021 - 2023</span>
+                        <p class="flex-grow-1">Diseño de prototipos interactivos alta fidelidad, pruebas de usabilidad y arquitectura de información para aplicaciones cliente.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. SECCIÓN DE VIDEOS DESTACADOS -->
+    <section id="videos" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold text-neon-cyan">
+                    <i class="fa-brands fa-youtube text-danger me-2"></i>Videos Destacados
+                </h2>
+                <p class="text-neon-pink fs-5">Contenido interactivo y tutoriales de programación</p>
+            </div>
+
+            <!-- Card Group de Videos Visibles -->
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                
+                <!-- Video 1 -->
+                <div class="col">
+                    <div class="cyber-glass h-100 overflow-hidden">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/PcCV4QKBtgU" title="■ Tutorial: Desarrollo Full Stack" allowfullscreen></iframe>
+                        </div>
+                        <div class="p-3">
+                            <h5 class="fw-bold text-neon-cyan mb-1">■ Tutorial: Desarrollo Full Stack</h5>
+                            <p class="small text-neon-yellow mb-0">Aprende a estructurar proyectos web desde cero con las mejores prácticas de codificación.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video 2 -->
+                <div class="col">
+                    <div class="cyber-glass h-100 overflow-hidden">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/3RCMHpZ-wg0" title="■ Guía UI/UX Futurista" allowfullscreen></iframe>
+                        </div>
+                        <div class="p-3">
+                            <h5 class="fw-bold text-neon-cyan mb-1">■ Guía UI/UX Futurista</h5>
+                            <p class="small text-neon-yellow mb-0">Principios de diseño moderno, psicología del color y efectos de neon en interfaces.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video 3 -->
+                <div class="col">
+                    <div class="cyber-glass h-100 overflow-hidden">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/TB5jF10PYmg" title="■ Consejos Frontend & Clean Code" allowfullscreen></iframe>
+                        </div>
+                        <div class="p-3">
+                            <h5 class="fw-bold text-neon-cyan mb-1">■ Consejos Frontend & Clean Code</h5>
+                            <p class="small text-neon-yellow mb-0">Optimización de rendimiento web, accesibilidad y maquetación responsiva extrema.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 9 BLOQUES ADICIONALES COMENTADOS PARA ACTIVACIÓN FUTURA -->
+            <!-- 
+            <div class="row row-cols-1 row-cols-md-3 g-4 mt-2">
+                
+                <div class="col">
+                    <div class="cyber-glass h-100 overflow-hidden">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/VIDEO_ID_4" title="■ Video Extra 4" allowfullscreen></iframe>
+                        </div>
+                        <div class="p-3">
+                            <h5 class="fw-bold text-neon-cyan mb-1">■ Video 4: Título Por Definir</h5>
+                            <p class="small text-neon-yellow mb-0">Descripción del video extra 4 para activar en el futuro.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="cyber-glass h-100 overflow-hidden">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/VIDEO_ID_5" title="■ Video Extra 5" allowfullscreen></iframe>
+                        </div>
+                        <div class="p-3">
+                            <h5 class="fw-bold text-neon-cyan mb-1">■ Video 5: Título Por Definir</h5>
+                            <p class="small text-neon-yellow mb-0">Descripción del video extra 5 para activar en el futuro.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="cyber-glass h-100 overflow-hidden">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/VIDEO_ID_6" title="■ Video Extra 6" allowfullscreen></iframe>
+                        </div>
+                        <div class="p-3">
+                            <h5 class="fw-bold text-neon-cyan mb-1">■ Video 6: Título Por Definir</h5>
+                            <p class="small text-neon-yellow mb-0">Descripción del video extra 6 para activar en el futuro.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="cyber-glass h-100 overflow-hidden">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/VIDEO_ID_7" title="■ Video Extra 7" allowfullscreen></iframe>
+                        </div>
+                        <div class="p-3">
+                            <h5 class="fw-bold text-neon-cyan mb-1">■ Video 7: Título Por Definir</h5>
+                            <p class="small text-neon-yellow mb-0">Descripción del video extra 7 para activar en el futuro.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="cyber-glass h-100 overflow-hidden">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/VIDEO_ID_8" title="■ Video Extra 8" allowfullscreen></iframe>
+                        </div>
+                        <div class="p-3">
+                            <h5 class="fw-bold text-neon-cyan mb-1">■ Video 8: Título Por Definir</h5>
+                            <p class="small text-neon-yellow mb-0">Descripción del video extra 8 para activar en el futuro.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="cyber-glass h-100 overflow-hidden">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/VIDEO_ID_9" title="■ Video Extra 9" allowfullscreen></iframe>
+                        </div>
+                        <div class="p-3">
+                            <h5 class="fw-bold text-neon-cyan mb-1">■ Video 9: Título Por Definir</h5>
+                            <p class="small text-neon-yellow mb-0">Descripción del video extra 9 para activar en el futuro.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="cyber-glass h-100 overflow-hidden">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/VIDEO_ID_10" title="■ Video Extra 10" allowfullscreen></iframe>
+                        </div>
+                        <div class="p-3">
+                            <h5 class="fw-bold text-neon-cyan mb-1">■ Video 10: Título Por Definir</h5>
+                            <p class="small text-neon-yellow mb-0">Descripción del video extra 10 para activar en el futuro.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="cyber-glass h-100 overflow-hidden">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/VIDEO_ID_11" title="■ Video Extra 11" allowfullscreen></iframe>
+                        </div>
+                        <div class="p-3">
+                            <h5 class="fw-bold text-neon-cyan mb-1">■ Video 11: Título Por Definir</h5>
+                            <p class="small text-neon-yellow mb-0">Descripción del video extra 11 para activar en el futuro.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="cyber-glass h-100 overflow-hidden">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/VIDEO_ID_12" title="■ Video Extra 12" allowfullscreen></iframe>
+                        </div>
+                        <div class="p-3">
+                            <h5 class="fw-bold text-neon-cyan mb-1">■ Video 12: Título Por Definir</h5>
+                            <p class="small text-neon-yellow mb-0">Descripción del video extra 12 para activar en el futuro.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            -->
+
+        </div>
+    </section>
+
+    <!-- 7. FORMULARIO DE CONTACTO -->
+    <section id="contacto" class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="cyber-glass p-4 p-md-5">
+                        <div class="text-center mb-4">
+                            <h2 class="display-5 fw-bold text-neon-cyan">
+                                <i class="fa-solid fa-paper-plane me-2"></i>Contacto Directo
+                            </h2>
+                            <p class="text-neon-yellow">¿Tienes una idea o proyecto en mente? ¡Escríbeme!</p>
+                        </div>
+
+                        <!-- Banner de Confirmación en Pantalla -->
+                        <div id="contact-alert" class="alert alert-success d-none text-center fw-bold fs-5 rounded-pill shadow" role="alert">
+                            ■ Mensaje enviado correctamente
+                        </div>
+
+                        <form id="contactForm" novalidate>
+                            <div class="row g-3">
+                                <!-- Nombre -->
+                                <div class="col-md-6">
+                                    <label for="userName" class="form-label fw-semibold">Nombre Completo *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-dark border-info text-neon-cyan"><i class="fa-solid fa-user"></i></span>
+                                        <input type="text" class="form-control bg-dark text-light border-info" id="userName" placeholder="Tu nombre" required>
+                                    </div>
+                                    <div class="invalid-feedback">Por favor ingresa tu nombre.</div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="col-md-6">
+                                    <label for="userEmail" class="form-label fw-semibold">Correo Electrónico *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-dark border-info text-neon-cyan"><i class="fa-solid fa-envelope"></i></span>
+                                        <input type="email" class="form-control bg-dark text-light border-info" id="userEmail" placeholder="ejemplo@correo.com" required>
+                                    </div>
+                                    <div class="invalid-feedback">Ingresa un correo electrónico válido.</div>
+                                </div>
+
+                                <!-- Teléfono -->
+                                <div class="col-12">
+                                    <label for="userPhone" class="form-label fw-semibold">Teléfono / WhatsApp</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-dark border-info text-neon-cyan"><i class="fa-solid fa-phone"></i></span>
+                                        <input type="tel" class="form-control bg-dark text-light border-info" id="userPhone" placeholder="+1 (809) 000-0000">
+                                    </div>
+                                </div>
+
+                                <!-- Mensaje -->
+                                <div class="col-12">
+                                    <label for="userMessage" class="form-label fw-semibold">Mensaje *</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-dark border-info text-neon-cyan"><i class="fa-solid fa-comment"></i></span>
+                                        <textarea class="form-control bg-dark text-light border-info" id="userMessage" rows="4" placeholder="Escribe tu mensaje detallado aquí..." required></textarea>
+                                    </div>
+                                    <div class="invalid-feedback">Por favor escribe un mensaje.</div>
+                                </div>
+
+                                <!-- Botón Enviar DodgerBlue Centrado -->
+                                <div class="col-12 text-center mt-4">
+                                    <button type="submit" class="btn btn-dodger px-5 py-3 fs-5">
+                                        <i class="fa-solid fa-paper-plane me-2"></i>Enviar
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. FOOTER LUMINOSO Y REDES SOCIALES -->
+    <footer class="cyber-navbar py-4 mt-5">
+        <div class="container">
+            <div class="row align-items-center justify-content-between g-3">
+                <div class="col-md-6 text-center text-md-start">
+                    <h5 class="fw-bold text-neon-cyan mb-1">[johan Batista]</h5>
+                    <p class="small text-neon-yellow mb-0">© 2026 Todos los derechos reservados. Estética Ciberpunk Nocturna.</p>
+                </div>
+                <!-- Iconos Sociales Luminosos -->
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="d-inline-flex gap-3">
+                        <a href="https://www.linkedin.com/in/johan-batista-788214244" target="_blank" class="social-link-icon" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/johnbasa22" target="_blank" class="social-link-icon" title="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://wa.me/18097191917" target="_blank" class="social-link-icon" title="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://www.instagram.com/johnba19_/" target="_blank" class="social-link-icon" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botón Volver Arriba -->
+    <button type="button" id="btn-back-to-top" title="Volver Arriba">
+        <i class="fa-solid fa-arrow-up fs-5"></i>
+    </button>
+
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom Logic Script -->
+    <script>
+        // Inicialización de EmailJS
+        (function() {
+            // Reemplaza con tu Public Key de EmailJS si deseas envíos directos de EmailJS
+            emailjs.init("YOUR_PUBLIC_KEY");
+        })();
+
+        // CANVAS MATRIX RAIN EFFECT
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const matrixChars = '01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz<>[]{}/*=+#@';
+        const fontSize = 14;
+        let columns = Math.floor(canvas.width / fontSize);
+        let drops = Array(columns).fill(1);
+
+        function drawMatrix() {
+            // Fondo translúcido suave que no opaca el contenido
+            const isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
+            ctx.fillStyle = isDark ? 'rgba(8, 11, 16, 0.08)' : 'rgba(244, 247, 251, 0.08)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = isDark ? 'rgba(0, 243, 255, 0.45)' : 'rgba(30, 144, 255, 0.35)';
+            ctx.font = fontSize + 'px monospace';
+
+            if (drops.length !== Math.floor(canvas.width / fontSize)) {
+                columns = Math.floor(canvas.width / fontSize);
+                drops = Array(columns).fill(1);
+            }
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = matrixChars.charAt(Math.floor(Math.random() * matrixChars.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 45);
+
+        // DARK / LIGHT MODE SWITCHER (100% de los elementos se adaptan)
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+        const htmlElem = document.documentElement;
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElem.getAttribute('data-bs-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            htmlElem.setAttribute('data-bs-theme', newTheme);
+
+            if (newTheme === 'dark') {
+                themeIcon.className = 'fa-solid fa-moon me-2';
+                themeText.textContent = 'Dark Mode';
+            } else {
+                themeIcon.className = 'fa-solid fa-sun me-2';
+                themeText.textContent = 'Light Mode';
+            }
+        });
+
+        // FILTRADO DINÁMICO DE PROYECTOS
+        const filterBtns = document.querySelectorAll('.btn-cyber-filter');
+        const projectItems = document.querySelectorAll('.project-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+
+                projectItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // BOTÓN VOLVER ARRIBA
+        const backToTopBtn = document.getElementById('btn-back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.style.display = 'block';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // VALIDACIÓN DE FORMULARIO DE CONTACTO & CONFIRMACIÓN
+        const contactForm = document.getElementById('contactForm');
+        const contactAlert = document.getElementById('contact-alert');
+
+        contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            if (!contactForm.checkValidity()) {
+                e.stopPropagation();
+                contactForm.classList.add('was-validated');
+                return;
+            }
+
+            // Intento de envío a johanbasa22@gmail.com con EmailJS
+            const name = document.getElementById('userName').value;
+            const email = document.getElementById('userEmail').value;
+            const phone = document.getElementById('userPhone').value;
+            const message = document.getElementById('userMessage').value;
+
+            // Muestra confirmación en pantalla
+            contactAlert.classList.remove('d-none');
+            contactForm.reset();
+            contactForm.classList.remove('was-validated');
+
+            // Ocultar la confirmación tras 5 segundos
+            setTimeout(() => {
+                contactAlert.classList.add('d-none');
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
